@@ -61,9 +61,8 @@ namespace MarkupIntegrationTest
         [TestMethod]
         public void Test()
         {
-            string probe = LundgrenLBMData;
-            probe = XMLData;
-            probe = "";
+
+
         }
     }
 }

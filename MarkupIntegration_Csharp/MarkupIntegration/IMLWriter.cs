@@ -8,5 +8,11 @@ namespace MarkupIntegration
 {
     public interface IMLWriter
     {
+        string CurrentObject { get; }
+
+        void CreateObject(string name);
+        void AddProperty(string name, string value);
+        void CloseObject();        
+        void CloseAll();
     }
 }
