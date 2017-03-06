@@ -85,8 +85,9 @@ namespace MarkupIntegration
 
         public void CreateHeader()
         {
-            // todo write xml doc format line
-            // skipping this in order to pass the test
+            StringBuilder line = new StringBuilder(this.Indentation)
+                .AppendFormat("<?xml version=\"1.0\" encoding=\"{0}\"?>", this.ostream.Encoding.HeaderName);
+            this.ostream.WriteLine( line );
         }
 
         public void CreateFooter()
