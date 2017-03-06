@@ -24,6 +24,15 @@ namespace MarkupIntegration
             }
         }
 
+        public string IndentationSymbol { get; set; }
+        private string IndentedNewLine(int levels)
+        {
+            StringBuilder output = new StringBuilder('\n');
+            for(int i = 0; i < levels; ++i)
+                output.Append(this.IndentationSymbol);
+            return output.ToString();
+        }
+
         public void AddProperty(string name, string value)
         {
             throw new NotImplementedException();
@@ -40,6 +49,16 @@ namespace MarkupIntegration
         }
 
         public void CreateObject(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateHeader()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateFooter()
         {
             throw new NotImplementedException();
         }

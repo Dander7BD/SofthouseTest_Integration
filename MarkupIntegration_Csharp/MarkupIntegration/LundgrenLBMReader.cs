@@ -86,6 +86,7 @@ namespace MarkupIntegration
             using( this.istream )
             {
                 string line = string.Empty;
+                output.CreateHeader();
                 output.CreateObject( "people" );
                 while( this.istream.Peek() != -1 )
                 {
@@ -124,6 +125,7 @@ namespace MarkupIntegration
                     }
                 }
                 output.CloseAll();
+                output.CreateFooter();
             }
 
             return output;
