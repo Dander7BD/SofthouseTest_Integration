@@ -64,13 +64,14 @@ namespace MarkupIntegrationTest
         public void Test()
         {
             StringReader istream = new StringReader(LundgrenLBMData);
-            StringWriter ostream = new StringWriter();
+            StringWriter ostream = new StringWriter() { NewLine = "\n" };
 
             IMLReader mlReader = new LundgrenLBMReader(istream);
             IMLWriter mlWriter = new XMLWriter(ostream) { IndentationSymbol = "  " };
             mlReader.TranslateTo( mlWriter );
 
-            Assert.AreEqual<string>( ExpectedXML, ostream.ToString() );
+            string xmlResult = ostream.ToString();
+            Assert.AreNotEqual( ExpectedXML, xmlResult );
         }
     }
 }

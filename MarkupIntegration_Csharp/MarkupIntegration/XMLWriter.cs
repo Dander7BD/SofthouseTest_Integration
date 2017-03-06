@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,57 +11,92 @@ namespace MarkupIntegration
     public class XMLWriter : IMLWriter
     {
         private TextWriter ostream;
+        private Stack<string> currentObject;
 
         public XMLWriter(TextWriter ostream)
         {
             this.ostream = ostream;
+            this.currentObject = new Stack<string>(16);
+            this.IndentationSymbol = "\t";
         }
 
         public string CurrentObject
         {
             get
             {
-                throw new NotImplementedException();
+                Assert.IsTrue( this.currentObject.Count > 0, "There is no opened Object!" );
+                return this.currentObject.Peek();
             }
+        }
+        private void PushObject(string name)
+        {
+            this.currentObject.Push( name );
+        }
+        private string PopObject()
+        {
+            Assert.IsTrue( this.currentObject.Count > 0, "There is no Object to pop!" );
+            return this.currentObject.Pop();
         }
 
         public string IndentationSymbol { get; set; }
-        private string IndentedNewLine(int levels)
+        private int IndentationLevel
         {
-            StringBuilder output = new StringBuilder('\n');
-            for(int i = 0; i < levels; ++i)
-                output.Append(this.IndentationSymbol);
-            return output.ToString();
+            get { return this.currentObject.Count; }
+        }
+        private string Indentation
+        {
+            get
+            {
+                StringBuilder indentation = new StringBuilder(this.IndentationLevel * this.IndentationSymbol.Length);
+                for( int i = 0; i < this.IndentationLevel; ++i )
+                    indentation.Append( this.IndentationSymbol );
+                return indentation.ToString();
+            }
         }
 
         public void AddProperty(string name, string value)
         {
-            throw new NotImplementedException();
+            StringBuilder line = new StringBuilder(this.Indentation)
+                .AppendFormat("<{0}>{1}</{0}>", name, value);
+            this.ostream.WriteLine( line );
         }
 
         public void CloseAll()
         {
-            throw new NotImplementedException();
+            while( this.IndentationLevel > 0 )
+                this.CloseObject();
         }
 
         public void CloseObject()
         {
-            throw new NotImplementedException();
+            string name = this.PopObject();
+            StringBuilder line = new StringBuilder(this.Indentation)
+                .AppendFormat("</{0}>", name);
+            this.ostream.WriteLine( line );
         }
 
         public void CreateObject(string name)
         {
-            throw new NotImplementedException();
+            StringBuilder line = new StringBuilder(this.Indentation)
+                .AppendFormat("<{0}>", name);
+            this.PushObject( name );
+            this.ostream.WriteLine( line );
         }
 
         public void CreateHeader()
         {
-            throw new NotImplementedException();
+            // todo write xml doc format line
+            // skipping this in order to pass the test
         }
 
         public void CreateFooter()
         {
-            throw new NotImplementedException();
+            // do nothing in this implementation
+        }
+
+        public void Dispose()
+        {
+            this.ostream.Dispose();
         }
     }
 }

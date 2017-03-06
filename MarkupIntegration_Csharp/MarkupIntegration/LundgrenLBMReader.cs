@@ -103,8 +103,10 @@ namespace MarkupIntegration
                             break;
                         case 'T':
                             PhoneLine phone = new PhoneLine(line);
+                            output.CreateObject( "phone" );
                             if( phone.mobile.Length > 0 )   output.AddProperty( "mobile", phone.mobile );
                             if( phone.landline.Length > 0 ) output.AddProperty( "landline", phone.landline );
+                            output.CloseObject();
                             break;
                         case 'A':
                             AddressLine adress = new AddressLine(line);

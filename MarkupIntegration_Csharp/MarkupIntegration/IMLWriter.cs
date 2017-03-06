@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MarkupIntegration
 {
-    public interface IMLWriter
+    public interface IMLWriter : IDisposable
     {
         string CurrentObject { get; }
         
