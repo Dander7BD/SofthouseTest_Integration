@@ -1,5 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
+using MarkupIntegration;
 
 namespace MarkupIntegrationTest
 {
@@ -17,7 +19,7 @@ namespace MarkupIntegrationTest
             +   "\nT|0768-101802|08-101802"
             +   "\nP|Barack|Obama"
             +   "\nA|1600 Pennsylvania Avenue|Washington, D.C",
-            XMLData =
+            ExpectedXML =
                 "<people>"
             +   "\n  <person>"
             +   "\n    <firstname>Carl Gustaf</firstname>"
@@ -61,9 +63,15 @@ namespace MarkupIntegrationTest
         [TestMethod]
         public void Test()
         {
-            string probe = LundgrenLBMData;
-            probe = XMLData;
-            probe = "";
+            StringReader istream = new StringReader(LundgrenLBMData);
+            StringWriter ostream = new StringWriter() { NewLine = "\n" };
+
+            IMLReader mlReader = new LundgrenLBMReader(istream);
+            IMLWriter mlWriter = new XMLWriter(ostream) { IndentationSymbol = "  " };
+            mlReader.TranslateTo( mlWriter );
+
+            string xmlResult = ostream.ToString();
+            Assert.AreNotEqual( ExpectedXML, xmlResult );
         }
     }
 }

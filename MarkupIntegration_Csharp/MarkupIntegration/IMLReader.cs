@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MarkupIntegration
 {
-    public interface IMLReader
+    public interface IMLReader : IDisposable
     {
+        IMLWriter TranslateTo(IMLWriter output);
     }
 }

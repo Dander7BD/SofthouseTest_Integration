@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace MarkupIntegration
 {
-    public interface IMLWriter
+    public interface IMLWriter : IDisposable
     {
+        string CurrentObject { get; }
+        
+        void CreateHeader();
+        void CreateFooter();
+        void CreateObject(string name);
+        void AddProperty(string name, string value);
+        void CloseObject();        
+        void CloseAll();
     }
 }
