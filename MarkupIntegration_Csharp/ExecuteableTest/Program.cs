@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MarkupIntegrationTest;
+﻿using MarkupIntegrationTest;
 
 namespace ExecuteableTest
 {
@@ -11,8 +6,9 @@ namespace ExecuteableTest
     {
         static void Main(string[] args)
         {
-            LundgrenToXMLTest examiner = new LundgrenToXMLTest();
-            examiner.Test();
+            TranslateTest examiner = new TranslateTest();
+            examiner.LundgrenToXMLTest();
+            examiner.LundgrenToJSONTest();
         }
     }
 }

@@ -10,38 +10,64 @@ namespace MarkupIntegration
 {
     public class XMLWriter : IMLWriter
     {
+        private struct Element
+        {
+            public Element(string name, ElementType type)
+            {
+                this.Name = name;
+                this.Type = type;
+                this.ChildrenCount = 0;
+            }
+            public string Name;
+            public ElementType Type;
+            public int ChildrenCount;
+            public override bool Equals(object obj)
+            {
+                if( obj is Element )
+                {
+                    Element e = (Element)obj;
+                    return this.Type.Equals( e.Type ) && this.Name.Equals( e.Name );
+                }
+                return false;
+            }
+        }
+
         private TextWriter ostream;
-        private Stack<string> currentObject;
+        private Stack<Element> elementStack;
+        private int noneIndents;
 
         public XMLWriter(TextWriter ostream)
         {
             this.ostream = ostream;
-            this.currentObject = new Stack<string>(16);
+            this.elementStack = new Stack<Element>(16);
+            this.elementStack.Push( new Element( "", ElementType.Base ) );
+            this.noneIndents = 1;
             this.IndentationSymbol = "\t";
         }
 
-        public string CurrentObject
+        public string CurrentName
         {
-            get
+            get { return this.elementStack.Peek().Name; }
+        }
+        public ElementType CurrentType
+        {
+            get { return this.elementStack.Peek().Type; }
+        }
+        private int ChildrenCount
+        {
+            get { return this.elementStack.Peek().ChildrenCount; }
+            set
             {
-                Assert.IsTrue( this.currentObject.Count > 0, "There is no opened Object!" );
-                return this.currentObject.Peek();
+                Element o = this.elementStack.Pop();
+                o.ChildrenCount = value;
+                this.elementStack.Push( o );
             }
-        }
-        private void PushObject(string name)
-        {
-            this.currentObject.Push( name );
-        }
-        private string PopObject()
-        {
-            Assert.IsTrue( this.currentObject.Count > 0, "There is no Object to pop!" );
-            return this.currentObject.Pop();
         }
 
         public string IndentationSymbol { get; set; }
         private int IndentationLevel
         {
-            get { return this.currentObject.Count; }
+            get { return this.elementStack.Count - this.noneIndents; }
         }
         private string Indentation
         {
@@ -54,42 +80,116 @@ namespace MarkupIntegration
             }
         }
 
-        public void AddProperty(string name, string value)
+        public string NewLineSymbol
         {
-            StringBuilder line = new StringBuilder(this.Indentation)
-                .AppendFormat("<{0}>{1}</{0}>", name, value);
-            this.ostream.WriteLine( line );
+            get { return this.ostream.NewLine; }
+            set { this.ostream.NewLine = value; }
         }
 
-        public void CloseAll()
+        private string NewLine
+        { get { return this.NewLineSymbol + this.Indentation; } }
+
+        public void PushList(string name)
         {
-            while( this.IndentationLevel > 0 )
-                this.CloseObject();
+            ++this.ChildrenCount;
+            this.elementStack.Push( new Element( name, ElementType.List ) );
+            ++this.noneIndents;
         }
 
-        public void CloseObject()
+        public void PushListElement()
         {
-            string name = this.PopObject();
-            StringBuilder line = new StringBuilder(this.Indentation)
-                .AppendFormat("</{0}>", name);
-            this.ostream.WriteLine( line );
-        }
-
-        public void CreateObject(string name)
-        {
-            StringBuilder line = new StringBuilder(this.Indentation)
+            Assert.IsTrue( this.CurrentType == ElementType.List, "Trying to push a list element into a none-list.\nUse PopUntilMatch(ElementType.List, \"listName\")" );
+            
+            string name = this.elementStack.Peek().Name;
+            StringBuilder line = new StringBuilder(this.NewLine)
                 .AppendFormat("<{0}>", name);
-            this.PushObject( name );
-            this.ostream.WriteLine( line );
+
+            this.elementStack.Push( new Element( name, ElementType.ListElement ) );
+            this.ostream.Write( line );
         }
 
-        public void CreateHeader()
+        public void PushElement(string name)
         {
-            // todo write xml doc format line
-            // skipping this in order to pass the test
+            Assert.IsTrue( this.elementStack.Peek().Type != ElementType.List, "Close List "+ this.elementStack.Peek().Name + " before appending new element " + name + "." );
+
+            StringBuilder line = new StringBuilder(this.NewLine)
+                .AppendFormat("<{0}>", name);
+            ++this.ChildrenCount;
+            this.elementStack.Push( new Element( name, ElementType.Element ) );
+            this.ostream.Write( line );
         }
 
-        public void CreateFooter()
+        public void AttachProperty(string name, string value)
+        {
+            Assert.IsTrue( this.elementStack.Peek().Type != ElementType.List, "Only Elements and ListElements may have properties." );
+
+            StringBuilder line = new StringBuilder( this.NewLine )
+                .AppendFormat("<{0}>{1}</{0}>", name, value);
+            ++this.ChildrenCount;
+            this.ostream.Write( line );
+        }
+
+        public void AttachProperty(string name, int value)
+        {
+            this.AttachProperty( name, value.ToString() );
+        }
+
+        public bool WithinElement(ElementType type)
+        {
+            foreach( Element e in this.elementStack )
+                if( e.Type == type ) return true;
+            return false;
+        }
+
+        public bool WithinElement(ElementType type, string name)
+        {
+            return this.elementStack.Contains( new Element( name, type ) );
+        }
+
+        public void PopLast()
+        {
+            if( this.CurrentType != ElementType.Base )
+            {
+                Element e = this.elementStack.Pop();
+                switch( e.Type )
+                {
+                    case ElementType.Element:
+                    case ElementType.ListElement:
+                        StringBuilder line = new StringBuilder(e.ChildrenCount > 0 ? this.NewLineSymbol + this.Indentation : string.Empty )
+                            .AppendFormat("</{0}>", e.Name);
+                        this.ostream.Write( line );
+                        break;
+                    case ElementType.List:
+                        --this.noneIndents;
+                        break;
+                }
+            }
+        }
+
+        public void PopUntilMatch(ElementType type)
+        {
+            Assert.IsTrue( this.WithinElement( type ), string.Format( "[{0}] not found", type ) );
+
+            while( this.CurrentType != type )
+                this.PopLast();
+        }
+
+        public void PopUntilMatch(ElementType type, string name)
+        {
+            Assert.IsTrue( this.WithinElement( type, name ), string.Format( "[{0} : {1}] not found", name, type ) );
+            
+            while( this.CurrentType != type || this.CurrentName != name )
+                this.PopLast();
+        }
+
+        public void WriteHeader()
+        {
+            StringBuilder line = new StringBuilder()
+                .AppendFormat("<?xml version=\"1.0\" encoding=\"{0}\"?>", this.ostream.Encoding.HeaderName);
+            this.ostream.Write( line );
+        }
+
+        public void WriteFooter()
         {
             // do nothing in this implementation
         }
