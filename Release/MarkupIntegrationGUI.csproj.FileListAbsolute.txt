@@ -1,0 +1,14 @@
+C:\Users\dande\GitHub Repos\SofthouseTest_Integration\MarkupIntegration_Csharp\MarkupIntegrationGUI\bin\Release\MarkupIntegrationGUI.exe.config
+C:\Users\dande\GitHub Repos\SofthouseTest_Integration\MarkupIntegration_Csharp\MarkupIntegrationGUI\bin\Release\MarkupIntegrationGUI.exe
+C:\Users\dande\GitHub Repos\SofthouseTest_Integration\MarkupIntegration_Csharp\MarkupIntegrationGUI\bin\Release\MarkupIntegrationGUI.pdb
+C:\Users\dande\GitHub Repos\SofthouseTest_Integration\MarkupIntegration_Csharp\MarkupIntegrationGUI\bin\Release\MarkupIntegration.dll
+C:\Users\dande\GitHub Repos\SofthouseTest_Integration\MarkupIntegration_Csharp\MarkupIntegrationGUI\bin\Release\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\dande\GitHub Repos\SofthouseTest_Integration\MarkupIntegration_Csharp\MarkupIntegrationGUI\bin\Release\MarkupIntegration.pdb
+C:\Users\dande\GitHub Repos\SofthouseTest_Integration\MarkupIntegration_Csharp\MarkupIntegrationGUI\obj\Release\MarkupIntegrationGUI.csprojResolveAssemblyReference.cache
+C:\Users\dande\GitHub Repos\SofthouseTest_Integration\MarkupIntegration_Csharp\MarkupIntegrationGUI\obj\Release\MarkupIntegrationGUI.Properties.Resources.resources
+C:\Users\dande\GitHub Repos\SofthouseTest_Integration\MarkupIntegration_Csharp\MarkupIntegrationGUI\obj\Release\MarkupIntegrationGUI.ReceivingJSONForm.resources
+C:\Users\dande\GitHub Repos\SofthouseTest_Integration\MarkupIntegration_Csharp\MarkupIntegrationGUI\obj\Release\MarkupIntegrationGUI.ReceivingXMLForm.resources
+C:\Users\dande\GitHub Repos\SofthouseTest_Integration\MarkupIntegration_Csharp\MarkupIntegrationGUI\obj\Release\MarkupIntegrationGUI.SendingLundgrenLBForm.resources
+C:\Users\dande\GitHub Repos\SofthouseTest_Integration\MarkupIntegration_Csharp\MarkupIntegrationGUI\obj\Release\MarkupIntegrationGUI.csproj.GenerateResource.Cache
+C:\Users\dande\GitHub Repos\SofthouseTest_Integration\MarkupIntegration_Csharp\MarkupIntegrationGUI\obj\Release\MarkupIntegrationGUI.exe
+C:\Users\dande\GitHub Repos\SofthouseTest_Integration\MarkupIntegration_Csharp\MarkupIntegrationGUI\obj\Release\MarkupIntegrationGUI.pdb
