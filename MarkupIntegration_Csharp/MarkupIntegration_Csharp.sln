@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkupIntegrationTest", "Ma
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExecuteableTest", "ExecuteableTest\ExecuteableTest.csproj", "{8CAD1146-55A3-4141-8053-3C38AD2009EE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkupIntegrationGUI", "MarkupIntegrationGUI\MarkupIntegrationGUI.csproj", "{E17D6417-BD10-4F1B-910A-08DEE4FEB93D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{8CAD1146-55A3-4141-8053-3C38AD2009EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CAD1146-55A3-4141-8053-3C38AD2009EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CAD1146-55A3-4141-8053-3C38AD2009EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E17D6417-BD10-4F1B-910A-08DEE4FEB93D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E17D6417-BD10-4F1B-910A-08DEE4FEB93D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E17D6417-BD10-4F1B-910A-08DEE4FEB93D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E17D6417-BD10-4F1B-910A-08DEE4FEB93D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

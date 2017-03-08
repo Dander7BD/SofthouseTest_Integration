@@ -30,6 +30,10 @@ namespace MarkupIntegration
                 }
                 return false;
             }
+            public override int GetHashCode()
+            {
+                return base.GetHashCode();
+            }
         }
 
         private TextWriter ostream;

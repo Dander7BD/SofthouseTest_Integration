@@ -147,10 +147,14 @@ namespace MarkupIntegrationTest
         public void LundgrenToJSONTest()
         {
             StringReader istream = new StringReader(LundgrenLBMData);
-            StringWriter ostream = new StringWriter() { NewLine = "\n" };
+            StringWriter ostream = new StringWriter();
 
             IMLReader mlReader = new LundgrenLBMReader(istream);
-            IMLWriter mlWriter = new JSONWriter(ostream) { IndentationSymbol = "  " };
+            IMLWriter mlWriter = new JSONWriter(ostream)
+            {
+                NewLineSymbol = "\n",
+                IndentationSymbol = "  "
+            };
             mlReader.TranslateTo( mlWriter );
 
             string jsonResult = ostream.ToString();
