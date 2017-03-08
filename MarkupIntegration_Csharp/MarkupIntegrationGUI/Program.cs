@@ -16,8 +16,7 @@ namespace MarkupIntegrationGUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault( false );
-            (new ReceivingForm()).Show();
-            Application.Run( new SendingForm() );
+            Application.Run( new SendingLundgrenLBForm() );
         }
     }
 }

@@ -46,17 +46,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ReceivingForm.cs">
+    <Compile Include="ReceivingJSONForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ReceivingForm.Designer.cs">
-      <DependentUpon>ReceivingForm.cs</DependentUpon>
+    <Compile Include="ReceivingJSONForm.Designer.cs">
+      <DependentUpon>ReceivingJSONForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SendingForm.cs">
+    <Compile Include="ReceivingXMLForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SendingForm.Designer.cs">
-      <DependentUpon>SendingForm.cs</DependentUpon>
+    <Compile Include="ReceivingXMLForm.Designer.cs">
+      <DependentUpon>ReceivingXMLForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SendingLundgrenLBForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SendingLundgrenLBForm.Designer.cs">
+      <DependentUpon>SendingLundgrenLBForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -69,6 +75,15 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ReceivingJSONForm.resx">
+      <DependentUpon>ReceivingJSONForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReceivingXMLForm.resx">
+      <DependentUpon>ReceivingXMLForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SendingLundgrenLBForm.resx">
+      <DependentUpon>SendingLundgrenLBForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
