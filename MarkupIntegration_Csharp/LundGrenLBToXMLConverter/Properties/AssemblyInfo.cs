@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle( "ExecuteableTest" )]
+[assembly: AssemblyTitle( "LundGrenLBToXMLConverter" )]
 [assembly: AssemblyDescription( "" )]
 [assembly: AssemblyConfiguration( "" )]
 [assembly: AssemblyCompany( "" )]
-[assembly: AssemblyProduct( "ExecuteableTest" )]
+[assembly: AssemblyProduct( "LundGrenLBToXMLConverter" )]
 [assembly: AssemblyCopyright( "Copyright ©  2017" )]
 [assembly: AssemblyTrademark( "" )]
 [assembly: AssemblyCulture( "" )]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible( false )]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid( "8cad1146-55a3-4141-8053-3c38ad2009ee" )]
+[assembly: Guid( "0fa2ecd0-587c-480d-9bfc-49c54ec762f3" )]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkupIntegration", "Markup
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkupIntegrationTest", "MarkupIntegrationTest\MarkupIntegrationTest.csproj", "{FEBE3726-EE20-4799-85A3-70EF5CA29F24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExecuteableTest", "ExecuteableTest\ExecuteableTest.csproj", "{8CAD1146-55A3-4141-8053-3C38AD2009EE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LundGrenLBToXMLConverter", "LundGrenLBToXMLConverter\LundGrenLBToXMLConverter.csproj", "{0FA2ECD0-587C-480D-9BFC-49C54EC762F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{FEBE3726-EE20-4799-85A3-70EF5CA29F24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEBE3726-EE20-4799-85A3-70EF5CA29F24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEBE3726-EE20-4799-85A3-70EF5CA29F24}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8CAD1146-55A3-4141-8053-3C38AD2009EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8CAD1146-55A3-4141-8053-3C38AD2009EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8CAD1146-55A3-4141-8053-3C38AD2009EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8CAD1146-55A3-4141-8053-3C38AD2009EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FA2ECD0-587C-480D-9BFC-49C54EC762F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FA2ECD0-587C-480D-9BFC-49C54EC762F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FA2ECD0-587C-480D-9BFC-49C54EC762F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FA2ECD0-587C-480D-9BFC-49C54EC762F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

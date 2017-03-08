@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8CAD1146-55A3-4141-8053-3C38AD2009EE}</ProjectGuid>
+    <ProjectGuid>{0FA2ECD0-587C-480D-9BFC-49C54EC762F3}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ExecuteableTest</RootNamespace>
-    <AssemblyName>ExecuteableTest</AssemblyName>
+    <RootNamespace>LundGrenLBToXMLConverter</RootNamespace>
+    <AssemblyName>LundGrenLBToXMLConverter</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -50,14 +50,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MarkupIntegrationTest\MarkupIntegrationTest.csproj">
-      <Project>{febe3726-ee20-4799-85a3-70ef5ca29f24}</Project>
-      <Name>MarkupIntegrationTest</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MarkupIntegration\MarkupIntegration.csproj">
       <Project>{ce0d993b-f236-4dd0-9c90-2b159434f94e}</Project>
       <Name>MarkupIntegration</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LundgrenLBData.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
