@@ -12,8 +12,12 @@ namespace LundGrenLBToXMLConverter
     {
         static void Main(string[] args)
         {
-            if( args.Length < 2)
+            if( args.Length < 2 )
+            {
                 Console.WriteLine( "usage: LundGrenLBToXMLConverter path-source-file path-output-file." );
+                Console.ReadKey();
+                return;
+            }
 
             try
             {

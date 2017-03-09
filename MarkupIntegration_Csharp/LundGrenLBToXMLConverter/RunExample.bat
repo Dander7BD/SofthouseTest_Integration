@@ -1,1 +1,1 @@
-﻿.\LundGrenLBToXMLConverter.exe LundgrenLBData.txt Output.xml
+.\LundGrenLBToXMLConverter.exe LundgrenLBData.txt Output.xml
