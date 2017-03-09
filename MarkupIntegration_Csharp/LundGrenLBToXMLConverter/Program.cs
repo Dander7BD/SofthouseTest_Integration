@@ -19,7 +19,7 @@ namespace LundGrenLBToXMLConverter
             {
                 using( IMLReader lundgrenReader = new LundgrenLBMReader( new StreamReader( args[0] ) ) )
                 {
-                    using( IMLWriter xmlWriter = new XMLWriter( new StreamWriter( args[1] ) ) )
+                    using( IMLWriter xmlWriter = new XMLWriter( new StreamWriter( args[1] ) { NewLine = "\n" } ) { IndentationSymbol = "  " } )
                     {
                         lundgrenReader.TranslateTo( xmlWriter );
                     }
