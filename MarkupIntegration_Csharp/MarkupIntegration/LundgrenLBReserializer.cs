@@ -59,7 +59,7 @@ namespace MarkupIntegration
             }
         }
 
-        public class Phone : ISerializable, IXmlSerializable
+        public class Phone : ISerializable
         {
             private string mobile;
             private string landline;
@@ -67,24 +67,14 @@ namespace MarkupIntegration
             internal Phone(string line)
             {
                 string[] split  = line.Split('|');
-                this.mobile = split.Length > 1 ? split[1] : String.Empty;
-                this.landline = split.Length > 2 ? split[2] : String.Empty;
+                this.mobile = split.Length > 1 ? split[1].Trim() : String.Empty;
+                this.landline = split.Length > 2 ? split[2].Trim() : String.Empty;
             }
 
             public void GetObjectData(SerializationInfo info, StreamingContext context)
             {
                 if(this.mobile.Length > 0) info.AddValue( "mobile", this.mobile );
                 if(this.landline.Length > 0) info.AddValue( "landline", this.landline );
-            }
-
-            public XmlSchema GetSchema()
-            {
-                return null;
-            }
-
-            public void ReadXml(XmlReader reader)
-            {
-                throw new NotImplementedException();
             }
 
             public void WriteXml(XmlWriter writer)
@@ -96,7 +86,7 @@ namespace MarkupIntegration
             }
         }
 
-        public class Adress : ISerializable, IXmlSerializable
+        public class Adress : ISerializable
         {
             private string street;
             private string city;
@@ -105,9 +95,9 @@ namespace MarkupIntegration
             internal Adress(string line)
             {
                 string[] split  = line.Split('|');
-                this.street     = split.Length > 1 ? split[1] : String.Empty;
-                this.city       = split.Length > 2 ? split[2] : String.Empty;
-                this.zipcode    = split.Length > 3 ? split[3] : String.Empty;
+                this.street     = split.Length > 1 ? split[1].Trim() : String.Empty;
+                this.city       = split.Length > 2 ? split[2].Trim() : String.Empty;
+                this.zipcode    = split.Length > 3 ? split[3].Trim() : String.Empty;
             }
 
             public void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -115,16 +105,6 @@ namespace MarkupIntegration
                 if( this.street.Length > 0 )    info.AddValue( "street", this.street );
                 if( this.city.Length > 0 )      info.AddValue( "city", this.city );
                 if( this.zipcode.Length > 0 )   info.AddValue( "zipcode", this.zipcode );
-            }
-
-            public XmlSchema GetSchema()
-            {
-                return null;
-            }
-
-            public void ReadXml(XmlReader reader)
-            {
-                throw new NotImplementedException();
             }
 
             public void WriteXml(XmlWriter writer)
@@ -137,7 +117,7 @@ namespace MarkupIntegration
             }
         }
 
-        public class Family : ISerializable, IXmlSerializable
+        public class Family : ISerializable
         {
             private ReaderWrapper istream;
             private string name;
@@ -151,7 +131,7 @@ namespace MarkupIntegration
                 this.istream = istream;
                 string line = this.istream.ReadLine();
                 string[] split = line.Split('|');
-                this.name = split.Length > 1 ? split[1] : String.Empty;
+                this.name = split.Length > 1 ? split[1].Trim() : String.Empty;
                 if( split.Length > 2 ) this.bornIsRead = int.TryParse( split[2], out this.born );
             }
 
@@ -167,8 +147,8 @@ namespace MarkupIntegration
             {
                 if( this.name.Length > 0 ) writer.WriteElementString( "name", this.name );
                 if( this.bornIsRead ) writer.WriteElementString( "born", this.born.ToString() );
-                if( !Object.ReferenceEquals( this.adress, null ) ) writer.WriteValue( this.adress );
-                if( !Object.ReferenceEquals( this.phone, null ) ) writer.WriteValue( this.phone );
+                if( !Object.ReferenceEquals( this.adress, null ) ) this.adress.WriteXml(writer);
+                if( !Object.ReferenceEquals( this.phone, null ) ) this.phone.WriteXml(writer);
             }
 
             public void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -182,29 +162,20 @@ namespace MarkupIntegration
                         {
                             case 'a':
                             case 'A':
-                                this.adress = new Adress( line );
+                                this.adress = new Adress( this.istream.ReadLine() );
                                 break;
                             case 't':
                             case 'T':
-                                this.phone = new Phone( line );
+                                this.phone = new Phone( this.istream.ReadLine() );
                                 break;
                             default:
                                 this.AddTo( info );
                                 return;
                         }
                     }
+                    else this.istream.ReadLine();
                 }
                 this.AddTo( info );
-            }
-
-            public XmlSchema GetSchema()
-            {
-                return null;
-            }
-
-            public void ReadXml(XmlReader reader)
-            {
-                throw new NotImplementedException();
             }
 
             public void WriteXml(XmlWriter writer)
@@ -219,11 +190,11 @@ namespace MarkupIntegration
                         {
                             case 'a':
                             case 'A':
-                                this.adress = new Adress( line );
+                                this.adress = new Adress( this.istream.ReadLine() );
                                 break;
                             case 't':
                             case 'T':
-                                this.phone = new Phone( line );
+                                this.phone = new Phone( this.istream.ReadLine() );
                                 break;
                             default:
                                 this.AddTo( writer );
@@ -231,13 +202,14 @@ namespace MarkupIntegration
                                 return;
                         }
                     }
+                    else this.istream.ReadLine();
                 }
                 this.AddTo( writer );
                 writer.WriteEndElement();
             }
         }
 
-        public class Person : ISerializable, IXmlSerializable
+        public class Person : ISerializable
         {
             private ReaderWrapper istream;
             private string firstname;
@@ -250,8 +222,8 @@ namespace MarkupIntegration
                 this.istream = istream;
                 string line = this.istream.ReadLine();
                 string[] split = line.Split('|');
-                this.firstname = split.Length > 1 ? split[1] : String.Empty;
-                this.surname = split.Length > 2 ? split[2] : String.Empty;
+                this.firstname = split.Length > 1 ? split[1].Trim() : String.Empty;
+                this.surname = split.Length > 2 ? split[2].Trim() : String.Empty;
             }
 
             private void AddSinglesTo(SerializationInfo info)
@@ -266,8 +238,8 @@ namespace MarkupIntegration
             {
                 if( this.firstname.Length > 0 ) writer.WriteElementString( "firstname", this.firstname );
                 if( this.surname.Length > 0 ) writer.WriteElementString( "lastname", this.surname );
-                if( !Object.ReferenceEquals( this.adress, null ) ) writer.WriteValue( this.adress );
-                if( !Object.ReferenceEquals( this.phone, null ) ) writer.WriteValue( this.phone );
+                if( !Object.ReferenceEquals( this.adress, null ) ) this.adress.WriteXml(writer);
+                if( !Object.ReferenceEquals( this.phone, null ) ) this.phone.WriteXml(writer);
             }
 
             public void GetObjectData(SerializationInfo info, StreamingContext context)
@@ -282,11 +254,11 @@ namespace MarkupIntegration
                         {
                             case 'a':
                             case 'A':
-                                this.adress = new Adress( line );
+                                this.adress = new Adress( this.istream.ReadLine() );
                                 break;
                             case 't':
                             case 'T':
-                                this.phone = new Phone( line );
+                                this.phone = new Phone( this.istream.ReadLine() );
                                 break;
                             case 'f':
                             case 'F':
@@ -297,18 +269,9 @@ namespace MarkupIntegration
                                 return;
                         }
                     }
+                    else this.istream.ReadLine();
                 }
                 this.AddSinglesTo( info );
-            }
-
-            public XmlSchema GetSchema()
-            {
-                return null;
-            }
-
-            public void ReadXml(XmlReader reader)
-            {
-                throw new NotImplementedException();
             }
 
             public void WriteXml(XmlWriter writer)
@@ -324,15 +287,15 @@ namespace MarkupIntegration
                         {
                             case 'a':
                             case 'A':
-                                this.adress = new Adress( line );
+                                this.adress = new Adress( this.istream.ReadLine() );
                                 break;
                             case 't':
                             case 'T':
-                                this.phone = new Phone( line );
+                                this.phone = new Phone( this.istream.ReadLine() );
                                 break;
                             case 'f':
                             case 'F':
-                                writer.WriteValue( new Family( this.istream ) );
+                                ( new Family( this.istream ) ).WriteXml(writer);
                                 break;
                             default:
                                 this.AddSinglesTo( writer );
@@ -340,13 +303,14 @@ namespace MarkupIntegration
                                 return;
                         }
                     }
+                    else this.istream.ReadLine();
                 }
                 this.AddSinglesTo( writer );
                 writer.WriteEndElement();
             }
         }
 
-        public class People : ISerializable, IXmlSerializable
+        public class People : ISerializable
         {
             private ReaderWrapper istream;
 
@@ -362,33 +326,10 @@ namespace MarkupIntegration
                     string line = this.istream.PeekLine();
                     if( line.Length > 2
                      && line[1] == '|'
-                     && (line[0] == 'p' || line[0] == 'P'))
-                        info.AddValue("person", new Person(this.istream));
-                }
-            }
-
-            public XmlSchema GetSchema()
-            {
-                return null;
-            }
-
-            public void ReadXml(XmlReader reader)
-            {
-                throw new NotImplementedException();
-            }
-
-            public void WriteXml(XmlWriter writer)
-            {
-                writer.WriteStartElement( "people" );
-                while( !this.istream.AtEnd() )
-                {
-                    string line = this.istream.PeekLine();
-                    if( line.Length > 2
-                     && line[1] == '|'
                      && (line[0] == 'p' || line[0] == 'P') )
-                        writer.WriteValue( new Person( this.istream ) );
+                        info.AddValue( "person", new Person( this.istream ) );
+                    else this.istream.ReadLine();
                 }
-                writer.WriteEndElement();
             }
         }
 
@@ -399,6 +340,9 @@ namespace MarkupIntegration
             Assert.IsNotNull( istream );
             this.istream = new ReaderWrapper( istream );
         }
+
+        /*DO NOT INVOKE. Reserved for XmlSerializer*/
+        public LundgrenLBReserializer() {}
 
         public void Dispose()
         {
@@ -415,6 +359,7 @@ namespace MarkupIntegration
             return null; // recommended implementation according to documentation
         }
 
+        /*DO NOT INVOKE*/
         public void ReadXml(XmlReader reader)
         {
             throw new NotImplementedException("This is a readonly stream and thus will never implement this function.");
@@ -422,7 +367,16 @@ namespace MarkupIntegration
 
         public void WriteXml(XmlWriter writer)
         {
-            writer.WriteValue( new People( this.istream ) );
+            while( !this.istream.AtEnd() )
+            {
+                string line = this.istream.PeekLine();
+                if( line.Length > 2
+                 && line[1] == '|'
+                 && (line[0] == 'p' || line[0] == 'P') )
+                    (new Person( this.istream )).WriteXml( writer );
+                else
+                    this.istream.ReadLine();
+            }
         }
     }
 }

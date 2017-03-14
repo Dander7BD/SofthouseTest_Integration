@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MarkupIntegration;
 using System.IO;
+using System.Xml.Serialization;
+using System.Xml;
 
 namespace MarkupIntegrationGUI
 {
@@ -21,24 +23,41 @@ namespace MarkupIntegrationGUI
 
         public void FeedLundgrenLB(string text)
         {
-            using( LundgrenLBMReader source = new LundgrenLBMReader( new StringReader( text ) ) )
+            using( LundgrenLBReserializer reader = new LundgrenLBReserializer( new StringReader( text ) ) )
             {
+                XmlSerializer serializer = new XmlSerializer(reader.GetType(), new XmlRootAttribute("people"));
                 StringBuilder xml = new StringBuilder();
-                using( XMLWriter translator = new XMLWriter( new StringWriter( xml ) ) )
+                using( StringWriter writer = new StringWriter( xml ) )
                 {
                     try
                     {
-                        //translator.NewLineSymbol = "\n";
-                        translator.IndentationSymbol = "  ";
-                        source.TranslateTo( translator );
+                        serializer.Serialize( writer, reader );
                         this.output.Text = xml.ToString();
                     }
-                    catch( Exception ex )
+                    catch( Exception e )
                     {
-                        this.output.Text = ex.Message;
+                        this.output.Text = e.Message;
                     }
                 }
             }
+            //using( LundgrenLBMReader source = new LundgrenLBMReader( new StringReader( text ) ) )
+            //{
+            //    StringBuilder xml = new StringBuilder();
+            //    using( XMLWriter translator = new XMLWriter( new StringWriter( xml ) ) )
+            //    {
+            //        try
+            //        {
+            //            //translator.NewLineSymbol = "\n";
+            //            translator.IndentationSymbol = "  ";
+            //            source.TranslateTo( translator );
+            //            this.output.Text = xml.ToString();
+            //        }
+            //        catch( Exception ex )
+            //        {
+            //            this.output.Text = ex.Message;
+            //        }
+            //    }
+            //}
         }
     }
 }
