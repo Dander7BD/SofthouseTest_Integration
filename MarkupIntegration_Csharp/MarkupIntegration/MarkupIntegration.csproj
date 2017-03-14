@@ -45,6 +45,7 @@
     <Compile Include="IMLWriter.cs" />
     <Compile Include="JSONWriter.cs" />
     <Compile Include="LundgrenLBMReader.cs" />
+    <Compile Include="LundgrenLBReserializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XMLWriter.cs" />
   </ItemGroup>
